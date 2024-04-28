@@ -39,8 +39,8 @@ Type 'skip' to go to the next sheet without searching by rows: """).lower()
 
     if skip != "skip":
         for colName in notMatchingColumn:
-            targetFile = read_excel('info.xlsx', usecols=[listOfColumns.index(colName)], skiprows=amountOfHeaderRows, sheet_name=sheet)
-            targetFile2 = read_excel('info2.xlsx', usecols=[listOfColumns.index(colName)], skiprows=amountOfHeaderRows, sheet_name=sheet)
+            targetFile = read_excel(f'{fileName}.xlsx', usecols=[listOfColumns.index(colName)], skiprows=amountOfHeaderRows, sheet_name=sheet)
+            targetFile2 = read_excel(f'{fileName2}.xlsx', usecols=[listOfColumns.index(colName)], skiprows=amountOfHeaderRows, sheet_name=sheet)
 
             for num in range(0, len(targetFile)):
                 if targetFile.values[num] != targetFile2.values[num]:
