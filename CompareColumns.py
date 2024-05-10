@@ -42,8 +42,8 @@ def checkColumn(sheet, colName):
             print(f"First file {sheet}, {colName}: has the length {len(targetFile)}"), log(level=INFO, msg=f"First file {sheet}, {colName}: has the length {len(targetFile)}")
             print(f"Second file {sheet}, {colName}: has the length {len(targetFile2)}"), log(level=INFO, msg=f"Second file {sheet}, {colName}: has the length {len(targetFile2)}")
             try:
-                print(f"First file {sheet}, {colName}: has the sum {sum(targetFile.values())}"), log(level=INFO, msg=f"First file {sheet}, {colName}: has the sum {sum(targetFile.values())}")
-                print(f"Second file {sheet}, {colName}: has the sum {sum(targetFile2.values())}"), log(level=INFO, msg=f"Second file {sheet}, {colName}: has the sum {sum(targetFile2.values())}")
+                print(f"First file {sheet}, {colName}: has the sum {sum(targetFile.values)}"), log(level=INFO, msg=f"First file {sheet}, {colName}: has the sum {sum(targetFile.values)}")
+                print(f"Second file {sheet}, {colName}: has the sum {sum(targetFile2.values)}"), log(level=INFO, msg=f"Second file {sheet}, {colName}: has the sum {sum(targetFile2.values)}")
             except TypeError:
                 print(f"Sheet: {sheet}, {colName}: is text"), log(level=INFO, msg=f"Sheet: {sheet}, {colName}: is text")
 
@@ -61,10 +61,13 @@ def checkAllRows(sheet, colName):
     targetFile2 = read_excel(f'{path}\\{fileName2}', usecols=[listOfColumns.index(colName)], sheet_name=sheet)
 
     for rowNum in range(0, len(targetFile)):
-        if str(targetFile.values[rowNum]) != str(targetFile2.values[rowNum]):
-            print(f"Sheet: {sheet}, Column: {colName}, row {rowNum + 2} is different: {targetFile.values[rowNum]} and {targetFile2.values[rowNum]}"), log(level=INFO, msg=f"Sheet: {sheet}, Column: {colName}, row {rowNum + 2} is different: {targetFile.values[rowNum]} and {targetFile2.values[rowNum]}")  # add 1 for header and 1 as it starts at 0
-            counter += 1
-        if counter >= maxErrorRowsShown:
+        try:
+            if str(targetFile.values[rowNum]) != str(targetFile2.values[rowNum]):
+                print(f"Sheet: {sheet}, Column: {colName}, row {rowNum + 2} is different: {targetFile.values[rowNum]} and {targetFile2.values[rowNum]}"), log(level=INFO, msg=f"Sheet: {sheet}, Column: {colName}, row {rowNum + 2} is different: {targetFile.values[rowNum]} and {targetFile2.values[rowNum]}")  # add 1 for header and 1 as it starts at 0
+                counter += 1
+            if counter >= maxErrorRowsShown:
+                break
+        except TypeError:
             break
 
 
@@ -92,7 +95,7 @@ for sheet in listOfSheets:
     listOfColumns = list(read_excel(f'{path}\\{fileName}', sheet_name=sheet).columns)
     listOfColumnsPerSheet.append((sheet, listOfColumns))
 
-checkAll = input(f"Do you want a summary of all sheets and their column? y/n: ")
+checkAll = input(f"Do you want a summary of all sheets and their column comparing {fileName} and {fileName2}? y/n: ")
 print()
 
 if checkAll == "y":
