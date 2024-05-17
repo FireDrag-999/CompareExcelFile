@@ -150,7 +150,7 @@ while choseColumn == "y":
         print(f"Columns for {sheet}: {listOfColumnsPerSheet[listOfSheets.index(sheet)][1]}")
         colName = input(f"Enter the column name to check from (case sensitive): ")
         print()
-        while not {listOfColumnsPerSheet[listOfSheets.index(sheet)][1]}.__contains__(colName):
+        while not listOfColumnsPerSheet[listOfSheets.index(sheet)][1].__contains__(colName):
             print("That isn't a column name please try again")
             colName = input(f"Enter the column name to check from (case sensitive): ")
             print()
@@ -168,15 +168,21 @@ while choseColumn == "y":
         sheet = input("Enter the sheet name to check (case sensitive): ")
         print()
 
-    print(f"Columns for {sheet}: {listOfColumnsPerSheet[listOfSheets.index(sheet)][1]}")
-    colName = input(f"Enter the column name to check from (case sensitive): ")
-    print()
-    while not {listOfColumnsPerSheet[listOfSheets.index(sheet)][1]}.__contains__(colName):
-        print("That isn't a column name please try again")
+    wholeSheet = input("Check the whole sheet y/n: ")
+    if wholeSheet == "y":
+        for colName in listOfColumnsPerSheet[listOfSheets.index(sheet)][1]:
+            checkAllRows(sheet, colName)
+            print()
+    else:
+        print(f"Columns for {sheet}: {listOfColumnsPerSheet[listOfSheets.index(sheet)][1]}")
         colName = input(f"Enter the column name to check from (case sensitive): ")
+        print()
+        while not listOfColumnsPerSheet[listOfSheets.index(sheet)][1].__contains__(colName):
+            print("That isn't a column name please try again")
+            colName = input(f"Enter the column name to check from (case sensitive): ")
 
-    checkAllRows(sheet, colName)
-    choseColumn = input("Do you want to search each row y/n: ")
-    print()
+        checkAllRows(sheet, colName)
+        choseColumn = input("Do you want to search each row y/n: ")
+        print()
 
 print("Terminating")
