@@ -12,8 +12,6 @@ def checkSheet(sheet):
     targetFile = read_excel(f'{sortedFilesPath}\\{fileName}', sheet_name=sheet)
     targetFile2 = read_excel(f'{sortedFilesPath}\\{fileName2}', sheet_name=sheet)
     if not targetFile.empty or not targetFile2.empty:
-        # targetFile.sort_values(ascending=True, by=targetFile.columns[0])  # sorts by first column or only column
-        # targetFile2.sort_values(ascending=True, by=targetFile2.columns[0])
         if str(targetFile) == str(targetFile2):
             print(f"Sheet: {sheet} is the same"), log(level=INFO, msg=f"Sheet: {sheet} is the same")
         else:
@@ -32,9 +30,6 @@ def checkColumn(sheet, colName):
     targetFile2 = read_excel(f'{sortedFilesPath}\\{fileName2}', usecols=[listOfColumns.index(colName)], sheet_name=sheet)
 
     if not targetFile.empty or not targetFile2.empty:
-        # targetFile.sort_values(ascending=True, by=targetFile.columns[0])
-        # targetFile2.sort_values(ascending=True, by=targetFile2.columns[0])
-
         if str(targetFile) == str(targetFile2):
             print(f"Sheet: {sheet}, Column: {colName} is the same"), log(level=INFO, msg=f"Sheet: {sheet}, Column: {colName} is the same")
         else:
@@ -155,7 +150,7 @@ while choseColumn == "y":
         print(f"Columns for {sheet}: {listOfColumnsPerSheet[listOfSheets.index(sheet)][1]}")
         colName = input(f"Enter the column name to check from (case sensitive): ")
         print()
-        while not listOfColumns.__contains__(colName):
+        while not {listOfColumnsPerSheet[listOfSheets.index(sheet)][1]}.__contains__(colName):
             print("That isn't a column name please try again")
             colName = input(f"Enter the column name to check from (case sensitive): ")
             print()
@@ -176,7 +171,7 @@ while choseColumn == "y":
     print(f"Columns for {sheet}: {listOfColumnsPerSheet[listOfSheets.index(sheet)][1]}")
     colName = input(f"Enter the column name to check from (case sensitive): ")
     print()
-    while not listOfColumns.__contains__(colName):
+    while not {listOfColumnsPerSheet[listOfSheets.index(sheet)][1]}.__contains__(colName):
         print("That isn't a column name please try again")
         colName = input(f"Enter the column name to check from (case sensitive): ")
 
